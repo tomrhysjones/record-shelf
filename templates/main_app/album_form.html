@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}{{ form_title }} &middot; Record Shelf{% endblock %}
+
+{% block content %}
+<section class="container form-page">
+    <div class="form-card">
+        <h1>{{ form_title }}</h1>
+        <p class="muted">Tell us about the record. Cover art URL is optional.</p>
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+                <div class="form-errors">
+                    {% for err in form.non_field_errors %}<p>{{ err }}</p>{% endfor %}
+                </div>
+            {% endif %}
+
+            {% for field in form %}
+                <div class="field {% if field.field.widget.input_type == 'checkbox' %}field-checkbox{% endif %}">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}<p class="field-help">{{ field.help_text|safe }}</p>{% endif %}
+                    {% if field.errors %}<p class="field-error">{{ field.errors|join:" " }}</p>{% endif %}
+                </div>
+            {% endfor %}
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">{{ submit_label }}</button>
+                {% if album %}
+                    <a href="{{ album.get_absolute_url }}" class="btn btn-ghost">Cancel</a>
+                {% else %}
+                    <a href="{% url 'albums:list' %}" class="btn btn-ghost">Cancel</a>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

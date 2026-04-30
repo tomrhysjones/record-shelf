@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Delete {{ album.title }} &middot; Record Shelf{% endblock %}
+
+{% block content %}
+<section class="container form-page">
+    <div class="form-card">
+        <h1>Remove this album?</h1>
+        <p>You're about to delete <strong>{{ album.title }}</strong> by {{ album.artist }}. This can't be undone.</p>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-danger">Yes, delete it</button>
+                <a href="{{ album.get_absolute_url }}" class="btn btn-ghost">Cancel</a>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

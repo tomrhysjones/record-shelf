@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Record Shelf &mdash; your personal music library{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container hero-inner">
+        <div class="hero-copy">
+            <p class="eyebrow">A home for your record collection</p>
+            <h1 class="hero-title">Catalogue every record you love.</h1>
+            <p class="hero-lede">
+                Record Shelf lets you log albums, rate them out of five, tag them by genre and
+                keep notes on the records that have stayed with you. Share what's on your shelf
+                or browse what other collectors are spinning.
+            </p>
+            <div class="hero-cta">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'albums:create' %}" class="btn btn-primary">Add a new album</a>
+                    <a href="{% url 'albums:my_shelf' %}" class="btn btn-ghost">Open my shelf</a>
+                {% else %}
+                    <a href="{% url 'accounts:signup' %}" class="btn btn-primary">Start your shelf</a>
+                    <a href="{% url 'albums:list' %}" class="btn btn-ghost">Browse the shop</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+            <div class="vinyl vinyl-lg"></div>
+            <div class="vinyl vinyl-md"></div>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <div class="container features-grid">
+        <article class="feature-card">
+            <h2>Log an album</h2>
+            <p>Title, artist, year, format, genre and a 1&ndash;5 rating &mdash; plus liner notes for the bits that matter.</p>
+        </article>
+        <article class="feature-card">
+            <h2>Browse the shop</h2>
+            <p>Filter by genre or search by title or artist. Every album page shows who added it and why they rate it.</p>
+        </article>
+        <article class="feature-card">
+            <h2>Curate your shelf</h2>
+            <p>Your dashboard only shows the records you own &mdash; edit, refine and remove anything in your collection.</p>
+        </article>
+    </div>
+</section>
+{% endblock %}

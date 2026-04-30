@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}{{ album.title }} &middot; Record Shelf{% endblock %}
+
+{% block content %}
+<section class="container detail-page">
+    <p><a href="{% url 'albums:list' %}" class="back-link">&larr; Back to the shop</a></p>
+
+    <article class="detail-grid">
+        <div class="detail-cover">
+            {% if album.cover_image_url %}
+                <img src="{{ album.cover_image_url }}" alt="Cover for {{ album.title }}">
+            {% else %}
+                <div class="album-cover-placeholder large" aria-hidden="true">
+                    <span class="vinyl vinyl-md"></span>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="detail-body">
+            <p class="eyebrow">{{ album.genre.name }} &middot; {{ album.get_format_display }} &middot; {{ album.release_year }}</p>
+            <h1 class="detail-title">{{ album.title }}</h1>
+            <p class="detail-artist">by {{ album.artist }}</p>
+            <p class="detail-stars" aria-label="Rating: {{ album.rating }} out of 5">{{ album.stars }}</p>
+
+            {% if album.notes %}
+                <h2 class="section-heading">Notes</h2>
+                <p class="detail-notes">{{ album.notes|linebreaksbr }}</p>
+            {% endif %}
+
+            <dl class="detail-meta">
+                <div><dt>Added by</dt><dd>{{ album.owner.username }}</dd></div>
+                <div><dt>Added on</dt><dd>{{ album.created_at|date:"j M Y" }}</dd></div>
+                {% if album.is_favourite %}
+                    <div><dt>Status</dt><dd>&#9733; Favourite</dd></div>
+                {% endif %}
+            </dl>
+
+            {% if user.is_authenticated and user == album.owner %}
+                <div class="detail-actions">
+                    <a href="{% url 'albums:update' album.pk %}" class="btn btn-primary">Edit album</a>
+                    <a href="{% url 'albums:delete' album.pk %}" class="btn btn-ghost btn-danger">Delete</a>
+                </div>
+            {% endif %}
+        </div>
+    </article>
+</section>
+{% endblock %}

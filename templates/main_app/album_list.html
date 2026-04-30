@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Browse the shop &middot; Record Shelf{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <p class="eyebrow">The shop floor</p>
+        <h1>Every record on the shelf</h1>
+        <p class="muted">Filter by genre or search by title or artist.</p>
+
+        <form method="get" class="filters" role="search">
+            <div class="field field-inline">
+                <label for="q" class="visually-hidden">Search</label>
+                <input id="q" name="q" type="search" value="{{ query }}" placeholder="Search title or artist...">
+            </div>
+            <div class="field field-inline">
+                <label for="genre" class="visually-hidden">Genre</label>
+                <select id="genre" name="genre">
+                    <option value="">All genres</option>
+                    {% for g in genres %}
+                        <option value="{{ g.slug }}" {% if g.slug == selected_genre %}selected{% endif %}>{{ g.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">Apply</button>
+            {% if query or selected_genre %}
+                <a href="{% url 'albums:list' %}" class="btn btn-ghost btn-sm">Clear</a>
+            {% endif %}
+        </form>
+    </div>
+</section>
+
+<section class="container">
+    {% if albums %}
+        <ul class="album-grid">
+            {% for album in albums %}
+                <li class="album-card">
+                    <a href="{{ album.get_absolute_url }}" class="album-card-link">
+                        <div class="album-cover">
+                            {% if album.cover_image_url %}
+                                <img src="{{ album.cover_image_url }}" alt="Cover for {{ album.title }}" loading="lazy">
+                            {% else %}
+                                <div class="album-cover-placeholder" aria-hidden="true">
+                                    <span class="vinyl vinyl-sm"></span>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="album-meta">
+                            <h2 class="album-title">{{ album.title }}</h2>
+                            <p class="album-artist">{{ album.artist }}</p>
+                            <p class="album-tags">
+                                <span class="tag">{{ album.genre.name }}</span>
+                                <span class="tag">{{ album.get_format_display }}</span>
+                                <span class="tag tag-year">{{ album.release_year }}</span>
+                            </p>
+                            <p class="album-stars" aria-label="Rating: {{ album.rating }} out of 5">{{ album.stars }}</p>
+                            <p class="album-owner">Added by {{ album.owner.username }}</p>
+                        </div>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="empty-state">
+            <p>No albums match your filters yet.</p>
+            {% if user.is_authenticated %}
+                <a href="{% url 'albums:create' %}" class="btn btn-primary">Add the first one</a>
+            {% else %}
+                <a href="{% url 'accounts:signup' %}" class="btn btn-primary">Sign up to add an album</a>
+            {% endif %}
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}My shelf &middot; Record Shelf{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container header-row">
+        <div>
+            <p class="eyebrow">Your collection</p>
+            <h1>My shelf</h1>
+            <p class="muted">Only you can see, edit and delete the records on this page.</p>
+        </div>
+        <a href="{% url 'albums:create' %}" class="btn btn-primary">+ Add album</a>
+    </div>
+</section>
+
+<section class="container">
+    {% if albums %}
+        <ul class="album-grid">
+            {% for album in albums %}
+                <li class="album-card">
+                    <a href="{{ album.get_absolute_url }}" class="album-card-link">
+                        <div class="album-cover">
+                            {% if album.cover_image_url %}
+                                <img src="{{ album.cover_image_url }}" alt="Cover for {{ album.title }}" loading="lazy">
+                            {% else %}
+                                <div class="album-cover-placeholder" aria-hidden="true">
+                                    <span class="vinyl vinyl-sm"></span>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="album-meta">
+                            <h2 class="album-title">{{ album.title }}</h2>
+                            <p class="album-artist">{{ album.artist }}</p>
+                            <p class="album-tags">
+                                <span class="tag">{{ album.genre.name }}</span>
+                                <span class="tag">{{ album.get_format_display }}</span>
+                                <span class="tag tag-year">{{ album.release_year }}</span>
+                            </p>
+                            <p class="album-stars" aria-label="Rating: {{ album.rating }} out of 5">{{ album.stars }}</p>
+                        </div>
+                    </a>
+                    <div class="card-actions">
+                        <a href="{% url 'albums:update' album.pk %}" class="btn btn-ghost btn-sm">Edit</a>
+                        <a href="{% url 'albums:delete' album.pk %}" class="btn btn-ghost btn-sm btn-danger">Delete</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="empty-state">
+            <p>Your shelf is empty &mdash; let's change that.</p>
+            <a href="{% url 'albums:create' %}" class="btn btn-primary">Add your first album</a>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}
