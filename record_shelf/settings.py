@@ -26,16 +26,9 @@ SECRET_KEY = os.environ.get(
 
 DEBUG = os.environ.get("DJANGO_DEBUG", "True").lower() == "true"
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".onrender.com", ".railway.app", ".fly.dev"]
-extra_host = os.environ.get("DJANGO_ALLOWED_HOST")
-if extra_host:
-    ALLOWED_HOSTS.append(extra_host)
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".herokuapp.com"]
 
-CSRF_TRUSTED_ORIGINS = ["https://*.onrender.com", "https://*.railway.app", "https://*.fly.dev"]
-
-extra_origin = os.environ.get("DJANGO_CSRF_ORIGIN")
-if extra_origin:
-    CSRF_TRUSTED_ORIGINS.append(extra_origin)
+CSRF_TRUSTED_ORIGINS = ["https://*.herokuapp.com"]
 
 
 # ---------------------------------------------------------------------------

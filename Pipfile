@@ -7,9 +7,9 @@ name = "pypi"
 django = "==5.1.4"
 psycopg = {version = "==3.2.3", extras = ["binary"]}
 dj-database-url = "==2.3.0"
-gunicorn = "==23.0.0"
-whitenoise = "==6.8.2"
 python-dotenv = "==1.0.1"
+gunicorn = "*"
+whitenoise = "*"
 
 [dev-packages]
 
