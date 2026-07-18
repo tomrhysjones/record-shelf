@@ -65,23 +65,28 @@ Authenticated users can create, edit and delete only the albums that belong to t
 
 ### Home
 
-![Home](images/home.png)
+<img width="1280" height="900" alt="Home" src="https://github.com/user-attachments/assets/0e5dceae-bf3d-43aa-af28-fadd5edbd387" />
+
 
 ### Browse Collection
 
-![Browse](images/browse.png)
+<img width="1280" height="900" alt="browse" src="https://github.com/user-attachments/assets/623a1394-7971-4027-8a1b-09fc623ff56d" />
+
 
 ### Album Details
 
-![Album Details](images/album-details.png)
+<img width="1280" height="900" alt="record detail" src="https://github.com/user-attachments/assets/42779692-fce0-49a0-b26b-1252d7f07c45" />
+
 
 ### Add Album
 
-![Add Album](images/add-album.png)
+<img width="1280" height="900" alt="edit form" src="https://github.com/user-attachments/assets/0d390ad5-dd13-43c8-9d5e-23b3a0eefeb9" />
+
 
 ### My Shelf
 
-![My Shelf](images/my-shelf.png)
+<img width="1280" height="900" alt="my-shelf" src="https://github.com/user-attachments/assets/ed292435-22e1-45b7-85ac-1cb778281fef" />
+
 
 ---
 
